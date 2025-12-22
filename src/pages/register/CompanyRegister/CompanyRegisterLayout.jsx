@@ -1,7 +1,8 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import registerIllustration from "../../../assets/images/logo/teamFoundry_LogoPrimary.png";
+import industryIllustration from "../../../assets/images/register/empresa.jpg";
 import { CompanyRegistrationProvider, useCompanyRegistration } from "./CompanyRegisterContext.jsx";
+import BackButton from "../../../components/ui/Button/BackButton.jsx";
 
 // Configura o wizard da empresa (4 etapas).
 const steps = [
@@ -52,13 +53,14 @@ function CompanyRegisterLayoutInner() {
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="hidden md:block bg-base-200">
             <img
-              src={registerIllustration}
-              alt="Fluxo de registo de empresa"
-              className="h-full w-full object-contain p-8 bg-base-100"
+              src={industryIllustration}
+              alt="Foto de industria"
+              className="h-full w-full object-cover rounded-3xl"
             />
           </div>
 
           <div className="p-8 sm:p-10 lg:p-12 flex flex-col">
+            <BackButton to="/" label="Voltar a home" className="self-start mb-6" />
             <nav className="flex flex-wrap items-center justify-center gap-2 text-sm">
               {steps.map((step, index) => {
                 const isActive = index === currentStepIndex;

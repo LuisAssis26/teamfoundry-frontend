@@ -132,7 +132,7 @@ function SettingsView({
                     setTheme(next);
                   }}
                 />
-                <span className="text-xs text-base-content/70">Dark</span>
+                <span className="text-xs text-base-content/70">Em breve</span>
               </div>
             </div>
           </div>

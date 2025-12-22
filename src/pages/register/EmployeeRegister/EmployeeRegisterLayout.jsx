@@ -1,7 +1,8 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import registerIllustration from "../../../assets/images/logo/teamFoundry_LogoPrimary.png";
+import workerIllustration from "../../../assets/images/register/funcionario.jpg";
 import { RegistrationProvider, useRegistration } from "./EmployeeRegisterContext.jsx";
+import BackButton from "../../../components/ui/Button/BackButton.jsx";
 
 // Representação declarativa das etapas visíveis no cabeçalho/guardas de rota.
 const registerSteps = [
@@ -68,13 +69,14 @@ function RegisterLayoutInner() {
                 <div className="grid grid-cols-1 md:grid-cols-2">
                     <div className="hidden md:block bg-base-200">
                         <img
-                            src={registerIllustration}
-                            alt="Fluxo de registo de candidato"
-                            className="h-full w-full object-contain p-8 bg-base-100"
+                            src={workerIllustration}
+                            alt="Foto de trabalhador"
+                            className="h-200 w-full object-cover rounded-3xl"
                         />
                     </div>
 
                     <div className="p-8 sm:p-10 lg:p-12 flex flex-col">
+                        <BackButton to="/" label="Voltar a home" className="self-start mb-6" />
                         <nav className="flex flex-wrap items-center justify-center gap-2 text-sm">
                             {registerSteps.map((step, index) => {
                                 const isActive = index === currentStepIndex;

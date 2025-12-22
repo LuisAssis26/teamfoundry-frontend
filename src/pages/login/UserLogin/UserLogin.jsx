@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import InputField from "../../../components/ui/Input/InputField.jsx";
 import Button from "../../../components/ui/Button/Button.jsx";
+import BackButton from "../../../components/ui/Button/BackButton.jsx";
 import { login } from "../../../api/auth/auth.js";
 import ForgotPassword from "../../../components/ui/Modal/ForgotPassword.jsx";
 import { useAuthContext } from "../../../auth/AuthContext.jsx";
@@ -56,6 +57,7 @@ export default function LoginCandidate() {
         <main className="min-h-screen flex items-center justify-center bg-base-200">
             <div className="card w-full max-w-md shadow-md bg-base-100">
                 <div className="card-body space-y-6">
+                    <BackButton to="/" label="Voltar a home" className="self-start" />
                     <h2 className="text-center text-2xl font-bold text-primary mb-4">
                         Login
                     </h2>
