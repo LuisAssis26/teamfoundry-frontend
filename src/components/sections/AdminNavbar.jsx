@@ -65,7 +65,7 @@ export default function AdminNavbar({ variant }) {
 
   return (
     <header className="bg-base-100 border-b border-base-200 shadow-sm">
-      <div className="mx-auto flex flex-col gap-4 md:flex-row md:items-center md:justify-between h-auto max-w-6xl px-6 py-4">
+      <div className="mx-auto flex flex-col gap-4 md:flex-row md:items-center md:justify-between h-auto max-w-6xl px-4 lg:px-6 py-4">
         <Link to={homePath} className="flex items-center gap-3 shrink-0">
           <div className="h-10 w-10">
             <img src={logo} alt="TeamFoundry" className="h-10 w-10 object-contain" />

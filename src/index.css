@@ -233,7 +233,7 @@ body.toastify-alerts .alert {
     z-index: 9999;
     margin: 0;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
-    animation: toast-in 180ms ease-out, toast-out 180ms ease-in 4s forwards;
+    animation: toast-in 180ms ease-out 1s backwards, toast-out 180ms ease-in 5s forwards;
     text-align: center;
     justify-content: center;
 }
