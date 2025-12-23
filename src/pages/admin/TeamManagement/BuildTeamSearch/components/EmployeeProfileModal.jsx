@@ -34,8 +34,8 @@ export default function EmployeeProfileModal({ open, onClose, employeeId, fallba
   const data = profile || fallback || {};
   const documents = {
     curriculum: { url: data.curriculumUrl, name: data.curriculumFileName || "Curriculo" },
-    idFront: { url: data.identificationFrontUrl, name: data.identificationFrontFileName || "Identifica??o (frente)" },
-    idBack: { url: data.identificationBackUrl, name: data.identificationBackFileName || "Identifica??o (verso)" },
+    idFront: { url: data.identificationFrontUrl, name: data.identificationFrontFileName || "Identificação (frente)" },
+    idBack: { url: data.identificationBackUrl, name: data.identificationBackFileName || "Identificação (verso)" },
   };
   const certifications = data.certifications || [];
 
