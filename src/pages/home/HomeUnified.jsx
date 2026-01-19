@@ -211,6 +211,13 @@ export default function HomeUnified() {
       .sort((a, b) => (a.displayOrder ?? 0) - (b.displayOrder ?? 0));
   }, [homeData]);
 
+  const orderedAuthenticatedSections = useMemo(() => {
+    if (!Array.isArray(homeData?.authenticatedSections)) return [];
+    return [...homeData.authenticatedSections]
+      .filter((section) => section.active)
+      .sort((a, b) => (a.displayOrder ?? 0) - (b.displayOrder ?? 0));
+  }, [homeData]);
+
   const industries = homeData?.industries ?? [];
   const partners = homeData?.partners ?? [];
 
@@ -259,34 +266,42 @@ export default function HomeUnified() {
         {!isLoading && !anyError && (
           <div className="space-y-14">
             {isAuthenticated ? (
-              heroSectionAuth && (
-                <HeroPanel
-                  displayName={displayName}
-                  section={heroSectionAuth}
-                  profileSummary={profileSummary}
-                  summaryLoading={profileSummaryLoading}
-                  loadingContent={homeLoading}
-                />
-              )
+              orderedAuthenticatedSections.map((section) => {
+                if (section.type === "HERO") {
+                  return (
+                    <HeroPanel
+                      key={section.id}
+                      displayName={displayName}
+                      section={section}
+                      profileSummary={profileSummary}
+                      summaryLoading={profileSummaryLoading}
+                      loadingContent={homeLoading}
+                    />
+                  );
+                }
+                if (section.type === "WEEKLY_TIP") {
+                  return (
+                    <WeeklyTipSection
+                      key={section.id}
+                      section={section}
+                      tipOfWeek={homeData?.weeklyTips?.tipOfWeek}
+                      error={null}
+                      fallbackTip={{ title: "Dica da semana", description: [] }}
+                    />
+                  );
+                }
+                return null;
+              })
             ) : (
               <PublicHero section={publicHero} />
-            )}
-
-            {isAuthenticated && weeklyTipSection && (
-              <WeeklyTipSection
-                section={weeklyTipSection}
-                tipOfWeek={homeData?.weeklyTips?.tipOfWeek}
-                error={null}
-                fallbackTip={{ title: "Dica da semana", description: [] }}
-              />
             )}
 
             <AreasSection section={areasSection} industries={industries} />
             <PartnersSection section={partnersSection} partners={partners} />
           </div>
         )}
-      </main>
+      </main >
       <Footer />
-    </div>
+    </div >
   );
 }
