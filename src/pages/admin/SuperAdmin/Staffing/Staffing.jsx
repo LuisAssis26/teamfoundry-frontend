@@ -46,14 +46,14 @@ export default function GestaoTrabalho() {
   useEffect(() => {
     if (requestsLoaded || initialRequestsLoad.current) return;
     initialRequestsLoad.current = true;
-    refreshRequests().catch(() => {});
+    refreshRequests().catch(() => { });
   }, [requestsLoaded, refreshRequests]);
 
   const initialAdminOptionsLoad = useRef(false);
   useEffect(() => {
     if (adminOptionsLoaded || initialAdminOptionsLoad.current) return;
     initialAdminOptionsLoad.current = true;
-    refreshAdminOptions().catch(() => {});
+    refreshAdminOptions().catch(() => { });
   }, [adminOptionsLoaded, refreshAdminOptions]);
 
   const filteredResponsibleOptions = useMemo(() => {
@@ -68,12 +68,12 @@ export default function GestaoTrabalho() {
       const matchesSearch = !term || team.includes(term) || company.includes(term);
 
       const matchesStatus =
-          statusFilter === "ALL" ? true : (request.state || "").toUpperCase() === statusFilter;
+        statusFilter === "ALL" ? true : (request.state || "").toUpperCase() === statusFilter;
 
       const matchesResponsible =
-          responsibleFilter === "ALL"
-              ? true
-              : String(request.responsibleAdminId || "") === responsibleFilter;
+        responsibleFilter === "ALL"
+          ? true
+          : String(request.responsibleAdminId || "") === responsibleFilter;
 
       return matchesSearch && matchesStatus && matchesResponsible;
     });
@@ -101,8 +101,8 @@ export default function GestaoTrabalho() {
       const updated = await teamRequestsAPI.assignToAdmin(selectedRequestId, admin.id);
       setWorkRequests((prev) => prev.map((request) => (request.id === updated.id ? updated : request)));
       // Garantir que os contadores de requisições por admin reflitam a atribuição mais recente
-      refreshRequests({ force: true }).catch(() => {});
-      refreshAdminOptions({ force: true }).catch(() => {});
+      refreshRequests({ force: true }).catch(() => { });
+      refreshAdminOptions({ force: true }).catch(() => { });
       handleCloseModal();
     } catch (err) {
       setAssignError(err.message || "Erro inesperado ao atribuir administrador.");
@@ -117,85 +117,91 @@ export default function GestaoTrabalho() {
     return admin ? admin.name : null;
   };
 
+  const selectedRequest = useMemo(
+    () => workRequests.find((r) => r.id === selectedRequestId),
+    [workRequests, selectedRequestId]
+  );
+
   return (
-      <section className="space-y-6">
-        {requestsError && (
-            <div className="alert alert-error shadow">
-              <span>{requestsError}</span>
-            </div>
-        )}
-        {adminError && (
-            <div className="alert alert-warning shadow">
-              <span>{adminError}</span>
-            </div>
-        )}
-        <h2 className="text-3xl md:text-4xl font-extrabold text-primary">Requisições</h2>
-        <section className="bg-base-100 border border-base-200 rounded-3xl shadow-xl p-8 space-y-6 md:p-10">
-          <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <FilterDropdown
-                  label="Status"
-                  value={statusFilter}
-                  onChange={(val) => setStatusFilter(val)}
-                  options={STATUS_FILTERS}
-                  className="items-center gap-2 w-full"
-                  selectClassName="w-full"
+    <section className="space-y-6">
+      {requestsError && (
+        <div className="alert alert-error shadow">
+          <span>{requestsError}</span>
+        </div>
+      )}
+      {adminError && (
+        <div className="alert alert-warning shadow">
+          <span>{adminError}</span>
+        </div>
+      )}
+      <h2 className="text-3xl md:text-4xl font-extrabold text-primary">Requisições</h2>
+      <section className="bg-base-100 border border-base-200 rounded-3xl shadow-xl p-8 space-y-6 md:p-10">
+        <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <FilterDropdown
+            label="Status"
+            value={statusFilter}
+            onChange={(val) => setStatusFilter(val)}
+            options={STATUS_FILTERS}
+            className="items-center gap-2 w-full"
+            selectClassName="w-full"
+          />
+
+          <FilterDropdown
+            label="Responsável"
+            value={responsibleFilter}
+            onChange={(val) => setResponsibleFilter(val)}
+            options={[{ value: "ALL", label: "Todos" }, ...filteredResponsibleOptions]}
+            className="items-center gap-2 w-full"
+            selectClassName="w-full"
+          />
+
+          <div className="form-control w-full md:w-64 shrink-0 ml-20">
+            <SearchBar
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+              placeholder="Equipe ou empresa"
+              className="w-full"
+              size="md"
+            />
+          </div>
+        </header>
+
+        {isLoadingRequests ? (
+          <div className="py-6 text-center text-base-content/70">Carregando requisições...</div>
+        ) : filteredRequests.length === 0 ? (
+          <div className="alert alert-info shadow-md">
+            <span className="text-body">Nenhuma requisicao encontrada.</span>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {filteredRequests.map((request) => (
+              <WorkRequestCard
+                key={request.id}
+                company={{ name: request.companyName }}
+                teamName={request.teamName}
+                description={request.description}
+                state={request.state}
+                responsibleAdminName={resolveAdminName(request.responsibleAdminId)}
+                startDate={request.startDate}
+                endDate={request.endDate}
+                createdAt={request.createdAt}
+                onAssignAdmin={() => handleAssignAdmin(request.id)}
               />
-
-              <FilterDropdown
-                  label="Responsável"
-                  value={responsibleFilter}
-                  onChange={(val) => setResponsibleFilter(val)}
-                  options={[{ value: "ALL", label: "Todos" }, ...filteredResponsibleOptions]}
-                  className="items-center gap-2 w-full"
-                  selectClassName="w-full"
-              />
-
-              <div className="form-control w-full md:w-64 shrink-0 ml-20">
-                <SearchBar
-                    value={searchTerm}
-                    onChange={(event) => setSearchTerm(event.target.value)}
-                    placeholder="Equipe ou empresa"
-                    className="w-full"
-                    size="md"
-                />
-              </div>
-          </header>
-
-          {isLoadingRequests ? (
-              <div className="py-6 text-center text-base-content/70">Carregando requisições...</div>
-          ) : filteredRequests.length === 0 ? (
-              <div className="alert alert-info shadow-md">
-                <span className="text-body">Nenhuma requisicao encontrada.</span>
-              </div>
-          ) : (
-              <div className="space-y-4">
-                {filteredRequests.map((request) => (
-                    <WorkRequestCard
-                        key={request.id}
-                        company={{ name: request.companyName }}
-                        teamName={request.teamName}
-                        description={request.description}
-                        state={request.state}
-                        responsibleAdminName={resolveAdminName(request.responsibleAdminId)}
-                        startDate={request.startDate}
-                        endDate={request.endDate}
-                        createdAt={request.createdAt}
-                        onAssignAdmin={() => handleAssignAdmin(request.id)}
-                    />
-                ))}
-              </div>
-          )}
-        </section>
-
-        <AssignAdminModal
-            open={isAssignModalOpen}
-            onClose={handleCloseModal}
-            onAssign={handleAssignAdminConfirm}
-            adminList={adminOptions}
-            isLoading={isLoadingAdmins}
-            isBusy={isAssigning}
-            errorMessage={assignError}
-        />
+            ))}
+          </div>
+        )}
       </section>
+
+      <AssignAdminModal
+        open={isAssignModalOpen}
+        onClose={handleCloseModal}
+        onAssign={handleAssignAdminConfirm}
+        adminList={adminOptions}
+        currentAdminId={selectedRequest?.responsibleAdminId}
+        isLoading={isLoadingAdmins}
+        isBusy={isAssigning}
+        errorMessage={assignError}
+      />
+    </section>
   );
 }

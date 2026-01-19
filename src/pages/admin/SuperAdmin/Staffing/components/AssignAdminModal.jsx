@@ -8,6 +8,7 @@ export default function AssignAdminModal({
   onClose,
   onAssign,
   adminList,
+  currentAdminId,
   isLoading,
   isBusy,
   errorMessage,
@@ -26,15 +27,52 @@ export default function AssignAdminModal({
     };
   }, [open]);
 
+  const currentAdmin = useMemo(
+    () => (currentAdminId ? adminList.find((a) => a.id === currentAdminId) : null),
+    [adminList, currentAdminId]
+  );
+
   const filteredAdmins = useMemo(() => {
     const term = searchTerm.trim().toLowerCase();
-    if (!term) return adminList;
-    return adminList.filter((admin) => admin.name.toLowerCase().includes(term));
-  }, [adminList, searchTerm]);
+    const others = adminList.filter((a) => a.id !== currentAdminId);
+    if (!term) return others;
+    return others.filter((admin) => admin.name.toLowerCase().includes(term));
+  }, [adminList, currentAdminId, searchTerm]);
+
+  const renderAdminRow = (admin, isCurrent = false) => (
+    <div
+      key={admin.id}
+      className={`grid grid-cols-12 gap-4 py-3 border-b items-center ${isCurrent ? "border-primary/30 bg-primary/5" : "border-base-200"
+        }`}
+    >
+      <div className="col-span-3">
+        <span className="text-body text-base-content">
+          {admin.name}
+          {isCurrent && (
+            <span className="ml-2 badge badge-sm badge-primary">Atual</span>
+          )}
+        </span>
+      </div>
+      <div className="col-span-6 flex justify-center">
+        <span className="text-body text-base-content font-medium">
+          {admin.workforceCount ?? admin.requestCount ?? 0}
+        </span>
+      </div>
+      <div className="col-span-3 flex justify-end">
+        <Button
+          variant={isCurrent ? "outline" : "secondary"}
+          label={isCurrent ? "Selecionado" : isBusy ? "Atribuindo..." : "Escolher"}
+          onClick={() => !isCurrent && onAssign(admin)}
+          className="w-auto"
+          disabled={isCurrent || isBusy}
+        />
+      </div>
+    </div>
+  );
 
   return (
     <Modal open={open} onClose={onClose} title="Selecionar Administrador" className="max-w-3xl w-full">
-      <div className="space-y-6 min-h-[420px] max-h-[520px] overflow-y-auto pr-1">
+      <div className="space-y-6 min-h-[420px] max-h-[520px] overflow-y-auto p-2">
         {errorMessage && (
           <div className="alert alert-error shadow">
             <span>{errorMessage}</span>
@@ -59,7 +97,7 @@ export default function AssignAdminModal({
           </div>
           <div className="col-span-6 text-center">
             <span className="text-label font-semibold text-base-content">
-              Total de requisições atribuídas
+              Total de mão de obra
             </span>
           </div>
           <div className="col-span-3" />
@@ -67,32 +105,14 @@ export default function AssignAdminModal({
 
         {isLoading ? (
           <div className="py-6 text-center text-base-content/70">Carregando administradores...</div>
-        ) : filteredAdmins.length === 0 ? (
-          <div className="py-6 text-center text-base-content/70">Nenhum administrador disponível.</div>
         ) : (
-          <div className="space-y-4">
-            {filteredAdmins.map((admin) => (
-              <div
-                key={admin.id}
-                className="grid grid-cols-12 gap-4 py-3 border-b border-base-200 items-center"
-              >
-                <div className="col-span-3">
-                  <span className="text-body text-base-content">{admin.name}</span>
-                </div>
-                <div className="col-span-6 flex justify-center">
-                  <span className="text-body text-base-content font-medium">{admin.requestCount}</span>
-                </div>
-                <div className="col-span-3 flex justify-end">
-                  <Button
-                    variant="secondary"
-                    label={isBusy ? "Atribuindo..." : "Escolher"}
-                    onClick={() => onAssign(admin)}
-                    className="w-auto"
-                    disabled={isBusy}
-                  />
-                </div>
-              </div>
-            ))}
+          <div className="space-y-0">
+            {currentAdmin && renderAdminRow(currentAdmin, true)}
+            {filteredAdmins.length === 0 && !currentAdmin ? (
+              <div className="py-6 text-center text-base-content/70">Nenhum administrador disponível.</div>
+            ) : (
+              filteredAdmins.map((admin) => renderAdminRow(admin, false))
+            )}
           </div>
         )}
       </div>
@@ -108,9 +128,11 @@ AssignAdminModal.propTypes = {
     PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
       name: PropTypes.string.isRequired,
-      requestCount: PropTypes.number.isRequired,
+      requestCount: PropTypes.number,
+      workforceCount: PropTypes.number,
     })
   ),
+  currentAdminId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isLoading: PropTypes.bool,
   isBusy: PropTypes.bool,
   errorMessage: PropTypes.string,
@@ -118,6 +140,7 @@ AssignAdminModal.propTypes = {
 
 AssignAdminModal.defaultProps = {
   adminList: [],
+  currentAdminId: null,
   isLoading: false,
   isBusy: false,
   errorMessage: null,

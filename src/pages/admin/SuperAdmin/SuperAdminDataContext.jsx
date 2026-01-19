@@ -122,9 +122,9 @@ export function SuperAdminDataProvider({ children }) {
         const data = await resp.json();
         const list = Array.isArray(data)
           ? data.map((admin) => ({
-              ...admin,
-              role: normalizeAdminRole(admin.role),
-            }))
+            ...admin,
+            role: normalizeAdminRole(admin.role),
+          }))
           : [];
         setAdminCredentials(list);
         setAdminCredentialsLoaded(true);
@@ -171,10 +171,11 @@ export function SuperAdminDataProvider({ children }) {
         const options = await teamRequestsAPI.getAdminOptions();
         const list = Array.isArray(options)
           ? options.map((item) => ({
-              id: item.id,
-              name: item.username,
-              requestCount: item.requestCount,
-            }))
+            id: item.id,
+            name: item.username,
+            requestCount: item.requestCount,
+            workforceCount: item.workforceCount ?? 0,
+          }))
           : [];
         setAdminOptions(list);
         setAdminOptionsLoaded(true);
