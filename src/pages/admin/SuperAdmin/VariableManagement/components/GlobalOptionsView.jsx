@@ -65,11 +65,8 @@ export default function GlobalOptionsView() {
   return (
     <div className="space-y-10 pt-4">
       {combinedOptionsError && (
-        <div className="alert alert-error shadow flex justify-between">
+        <div className="alert alert-error shadow">
           <span>{combinedOptionsError}</span>
-          <button type="button" className="btn btn-ghost btn-xs" onClick={handleOptionsErrorClose}>
-            Fechar
-          </button>
         </div>
       )}
 

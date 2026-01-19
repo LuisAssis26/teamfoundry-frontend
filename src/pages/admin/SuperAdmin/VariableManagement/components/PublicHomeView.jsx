@@ -30,11 +30,8 @@ export default function PublicHomeView({
   return (
     <div className="space-y-10">
       {showBanner && banner && (
-        <div className={`alert ${banner.type === "error" ? "alert-error" : "alert-success"} shadow flex justify-between`}>
+        <div className={`alert ${banner.type === "error" ? "alert-error" : "alert-success"} shadow`}>
           <span>{banner.message}</span>
-          <button type="button" className="btn btn-ghost btn-xs" onClick={() => setBanner(null)}>
-            Fechar
-          </button>
         </div>
       )}
 

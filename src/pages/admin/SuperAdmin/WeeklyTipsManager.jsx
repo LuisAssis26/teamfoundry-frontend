@@ -199,18 +199,10 @@ export default function WeeklyTipsManager({ onUnauthorized }) {
     <section className="space-y-6">
       {banner && (
         <div
-          className={`alert ${
-            banner.type === "error" ? "alert-error" : "alert-success"
-          } shadow flex justify-between`}
+          className={`alert ${banner.type === "error" ? "alert-error" : "alert-success"
+            } shadow`}
         >
           <span>{banner.message}</span>
-          <button
-            type="button"
-            className="btn btn-ghost btn-xs"
-            onClick={() => setBanner(null)}
-          >
-            Fechar
-          </button>
         </div>
       )}
 
@@ -325,9 +317,8 @@ function TipsTable({ tips, onEdit, onMove, onToggle, onMarkFeatured }) {
               </td>
               <td>
                 <span
-                  className={`badge badge-sm ${
-                    tip.active ? "badge-success" : "badge-ghost"
-                  }`}
+                  className={`badge badge-sm ${tip.active ? "badge-success" : "badge-ghost"
+                    }`}
                 >
                   {tip.active ? "Online" : "Oculta"}
                 </span>
