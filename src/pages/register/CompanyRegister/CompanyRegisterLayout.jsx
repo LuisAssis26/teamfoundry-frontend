@@ -55,7 +55,7 @@ function CompanyRegisterLayoutInner() {
             <img
               src={industryIllustration}
               alt="Foto de industria"
-              className="h-full w-full object-cover rounded-3xl"
+              className="h-full w-full object-cover rounded-l-3xl"
             />
           </div>
 

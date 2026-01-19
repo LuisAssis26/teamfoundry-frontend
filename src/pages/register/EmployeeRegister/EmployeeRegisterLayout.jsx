@@ -71,7 +71,7 @@ function RegisterLayoutInner() {
                         <img
                             src={workerIllustration}
                             alt="Foto de trabalhador"
-                            className="h-200 w-full object-cover rounded-3xl"
+                            className="h-200 w-full object-cover rounded-l-3xl"
                         />
                     </div>
 
