@@ -259,18 +259,20 @@ export default function HomeUnified() {
         {!isLoading && !anyError && (
           <div className="space-y-14">
             {isAuthenticated ? (
-              <HeroPanel
-                displayName={displayName}
-                section={heroSectionAuth}
-                profileSummary={profileSummary}
-                summaryLoading={profileSummaryLoading}
-                loadingContent={homeLoading}
-              />
+              heroSectionAuth?.active && (
+                <HeroPanel
+                  displayName={displayName}
+                  section={heroSectionAuth}
+                  profileSummary={profileSummary}
+                  summaryLoading={profileSummaryLoading}
+                  loadingContent={homeLoading}
+                />
+              )
             ) : (
               <PublicHero section={publicHero} />
             )}
 
-            {isAuthenticated && (
+            {isAuthenticated && weeklyTipSection?.active && (
               <WeeklyTipSection
                 section={weeklyTipSection}
                 tipOfWeek={homeData?.weeklyTips?.tipOfWeek}

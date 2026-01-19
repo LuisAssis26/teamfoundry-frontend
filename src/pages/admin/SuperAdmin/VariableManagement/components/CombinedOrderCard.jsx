@@ -110,30 +110,20 @@ export default function CombinedOrderCard() {
 
   const handleToggle = useCallback(
     async (item) => {
-      console.log("[DEBUG CombinedOrderCard] handleToggle called with item:", item);
-      console.log("[DEBUG CombinedOrderCard] appSections:", appSections);
-      console.log("[DEBUG CombinedOrderCard] publicSections:", publicSections);
-
       setBanner?.(null);
       const publicTarget = item.publicId
         ? publicSections.find((section) => section.id === item.publicId)
         : null;
       const appTarget = item.appId ? appSections.find((section) => section.id === item.appId) : null;
 
-      console.log("[DEBUG CombinedOrderCard] publicTarget:", publicTarget);
-      console.log("[DEBUG CombinedOrderCard] appTarget:", appTarget);
-
       try {
         if (publicTarget) {
-          console.log("[DEBUG CombinedOrderCard] Calling handlePublicToggle for:", publicTarget);
           await handlePublicToggle(publicTarget);
         }
         if (appTarget) {
-          console.log("[DEBUG CombinedOrderCard] Calling handleAppToggle for:", appTarget);
           await handleAppToggle(appTarget);
         }
       } catch (err) {
-        console.error("[DEBUG CombinedOrderCard] Error:", err);
         setBanner?.({ type: "error", message: err.message || "Nao foi possivel alterar a visibilidade." });
       }
     },
