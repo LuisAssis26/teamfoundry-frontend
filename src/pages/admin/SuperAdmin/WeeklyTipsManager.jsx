@@ -408,22 +408,22 @@ function WeeklyTipModal({ state, form, saving, onChange, onSubmit, onClose, onDe
     >
       <form id="weekly-tip-form" className="space-y-4" onSubmit={onSubmit}>
         <div className="grid gap-4 md:grid-cols-[1.5fr_1fr]">
-          <label className="form-control gap-2">
-            <span className="label-text font-semibold">Categoria</span>
+          <label className="form-control w-full gap-2 flex flex-col">
+            <span className="label-text font-semibold">Categoria:</span>
             <input
               type="text"
-              className="input input-bordered"
+              className="input input-bordered w-full"
               required
               maxLength={80}
               value={form.category}
               onChange={(e) => onChange("category", e.target.value)}
             />
           </label>
-          <label className="form-control gap-2">
-            <span className="label-text font-semibold">Data</span>
+          <label className="form-control w-full gap-2 flex flex-col">
+            <span className="label-text font-semibold">Data:</span>
             <input
               type="date"
-              className="input input-bordered"
+              className="input input-bordered w-full"
               required
               value={form.publishedAt}
               onChange={(e) => onChange("publishedAt", e.target.value)}
@@ -431,11 +431,11 @@ function WeeklyTipModal({ state, form, saving, onChange, onSubmit, onClose, onDe
           </label>
         </div>
 
-        <label className="form-control gap-2">
-          <span className="label-text font-semibold">Título</span>
+        <label className="form-control w-full gap-2 flex flex-col">
+          <span className="label-text font-semibold">Título:</span>
           <input
             type="text"
-            className="input input-bordered"
+            className="input input-bordered w-full"
             required
             maxLength={160}
             value={form.title}
@@ -443,10 +443,10 @@ function WeeklyTipModal({ state, form, saving, onChange, onSubmit, onClose, onDe
           />
         </label>
 
-        <label className="form-control gap-2">
-          <span className="label-text font-semibold">Descrição</span>
+        <label className="form-control w-full gap-2 flex flex-col">
+          <span className="label-text font-semibold">Descrição:</span>
           <textarea
-            className="textarea textarea-bordered min-h-[140px]"
+            className="textarea textarea-bordered min-h-[140px] w-full"
             required
             maxLength={2000}
             value={form.description}
@@ -456,7 +456,7 @@ function WeeklyTipModal({ state, form, saving, onChange, onSubmit, onClose, onDe
 
         <div className="flex flex-wrap items-center gap-6">
           <label className="label cursor-pointer gap-3">
-            <span className="label-text">Dica ativa</span>
+            <span className="label-text">Dica ativa:</span>
             <input
               type="checkbox"
               className="toggle toggle-primary"
@@ -465,7 +465,7 @@ function WeeklyTipModal({ state, form, saving, onChange, onSubmit, onClose, onDe
             />
           </label>
           <label className="label cursor-pointer gap-3">
-            <span className="label-text">Marcar como dica da semana</span>
+            <span className="label-text">Marcar como dica da semana:</span>
             <input
               type="checkbox"
               className="toggle toggle-primary"
