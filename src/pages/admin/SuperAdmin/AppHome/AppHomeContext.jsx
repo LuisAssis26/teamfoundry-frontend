@@ -187,7 +187,6 @@ export function AppHomeProvider({ children, onUnauthorized }) {
   const handleSectionToggle = useCallback(
     async (section) => {
       const key = sectionKeyFromType(section.type);
-      if (!key) return;
       setBanner(null);
       try {
         const updated = await updateAppHomeSection(section.id, {
@@ -209,7 +208,9 @@ export function AppHomeProvider({ children, onUnauthorized }) {
           ...prev,
           sections: prev.sections.map((item) => (item.id === updated.id ? updated : item)),
         }));
-        setForms((prev) => ({ ...prev, [key]: mapAppSectionForm(updated) }));
+        if (key) {
+          setForms((prev) => ({ ...prev, [key]: mapAppSectionForm(updated) }));
+        }
         setBanner({ type: "success", message: "Visibilidade atualizada." });
       } catch (err) {
         if (err?.status === 401) {
