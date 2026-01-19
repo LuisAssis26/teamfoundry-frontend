@@ -228,9 +228,9 @@ export default function HomeUnified() {
   const heroSectionAuth = homeData?.authenticatedSections?.find((section) => section.type === "HERO");
   const weeklyTipSection = homeData?.authenticatedSections?.find((section) => section.type === "WEEKLY_TIP");
 
-  console.log("[DEBUG HomeUnified] Authenticated Sections:", homeData?.authenticatedSections);
-  console.log("[DEBUG HomeUnified] Hero Auth:", heroSectionAuth);
-  console.log("[DEBUG HomeUnified] Weekly Tips Section:", weeklyTipSection);
+  console.log("[DEBUG HomeUnified] Hero Auth Active?:", heroSectionAuth?.active);
+  console.log("[DEBUG HomeUnified] Weekly Tips Auth Active?:", weeklyTipSection?.active);
+  console.log("[DEBUG HomeUnified] Weekly Tips Full Object:", JSON.stringify(weeklyTipSection, null, 2));
 
   const publicHero = orderedPublicSections.find((section) => section.type === "HERO");
   const areasSection = orderedPublicSections.find((section) => section.type === "INDUSTRIES");
@@ -274,6 +274,14 @@ export default function HomeUnified() {
               )
             ) : (
               <PublicHero section={publicHero} />
+            )}
+
+            {isAuthenticated && (
+              <div className="alert alert-info shadow max-w-lg mx-auto my-4">
+                <span>
+                  DEBUG: WeeklyTip Active = {String(weeklyTipSection?.active)}
+                </span>
+              </div>
             )}
 
             {isAuthenticated && weeklyTipSection?.active && (
