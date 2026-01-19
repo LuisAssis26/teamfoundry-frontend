@@ -228,6 +228,10 @@ export default function HomeUnified() {
   const heroSectionAuth = homeData?.authenticatedSections?.find((section) => section.type === "HERO");
   const weeklyTipSection = homeData?.authenticatedSections?.find((section) => section.type === "WEEKLY_TIP");
 
+  console.log("[DEBUG HomeUnified] Authenticated Sections:", homeData?.authenticatedSections);
+  console.log("[DEBUG HomeUnified] Hero Auth:", heroSectionAuth);
+  console.log("[DEBUG HomeUnified] Weekly Tips Section:", weeklyTipSection);
+
   const publicHero = orderedPublicSections.find((section) => section.type === "HERO");
   const areasSection = orderedPublicSections.find((section) => section.type === "INDUSTRIES");
   const partnersSection = orderedPublicSections.find((section) => section.type === "PARTNERS");
