@@ -1,7 +1,7 @@
 export const SECTION_LABELS = {
-  HERO: "Hero (topo)",
-  INDUSTRIES: "Áreas em que atuamos",
-  PARTNERS: "Parceiros",
+  HERO: "Hero",
+  INDUSTRIES: "Áreas de Atuação",
+  PARTNERS: "Empresas Parceiras",
 };
 
 export const VIEW_TABS = [

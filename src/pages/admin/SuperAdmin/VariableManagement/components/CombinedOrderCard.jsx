@@ -3,6 +3,13 @@ import { useAppHome } from "../../AppHome/AppHomeContext.jsx";
 import { useVariableManagement } from "../VariableManagementContext.jsx";
 import { updateUnifiedHome } from "../../../../../api/site/siteManagement.js";
 
+const SECTION_LABELS = {
+  HERO: "Hero",
+  WEEKLY_TIP: "Dica da Semana",
+  INDUSTRIES: "Áreas de Atuação",
+  PARTNERS: "Empresas Parceiras",
+};
+
 function buildCombinedSections({ publicSections = [], appSections = [] }) {
   const heroPublic = publicSections.find((s) => s.type === "HERO");
   const heroAuth = appSections.find((s) => s.type === "HERO");
@@ -13,47 +20,51 @@ function buildCombinedSections({ publicSections = [], appSections = [] }) {
   const items = [
     heroPublic || heroAuth
       ? {
-          key: "HERO",
-          title: (heroPublic || heroAuth)?.title || "Hero",
-          subtitle: heroPublic?.subtitle || heroAuth?.subtitle || "",
-          publicId: heroPublic?.id ?? null,
-          appId: heroAuth?.id ?? null,
-          active: Boolean(heroPublic?.active ?? heroAuth?.active),
-          order: heroPublic?.displayOrder ?? heroAuth?.displayOrder ?? 0,
-        }
+        key: "HERO",
+        label: SECTION_LABELS.HERO,
+        title: (heroPublic || heroAuth)?.title || "",
+        subtitle: heroPublic?.subtitle || heroAuth?.subtitle || "",
+        publicId: heroPublic?.id ?? null,
+        appId: heroAuth?.id ?? null,
+        active: Boolean(heroPublic?.active ?? heroAuth?.active),
+        order: heroPublic?.displayOrder ?? heroAuth?.displayOrder ?? 0,
+      }
       : null,
     weeklyTip
       ? {
-          key: "WEEKLY_TIP",
-          title: weeklyTip.title || "Dica da Semana",
-          subtitle: weeklyTip.subtitle || weeklyTip.content || "",
-          publicId: null,
-          appId: weeklyTip.id,
-          active: Boolean(weeklyTip.active),
-          order: weeklyTip.displayOrder ?? 1,
-        }
+        key: "WEEKLY_TIP",
+        label: SECTION_LABELS.WEEKLY_TIP,
+        title: weeklyTip.title || "",
+        subtitle: weeklyTip.subtitle || weeklyTip.content || "",
+        publicId: null,
+        appId: weeklyTip.id,
+        active: Boolean(weeklyTip.active),
+        order: weeklyTip.displayOrder ?? 1,
+      }
       : null,
     industries
       ? {
-          key: "INDUSTRIES",
-          title: industries.title || "Areas em que atuamos",
-          subtitle: industries.subtitle || "",
-          publicId: industries.id,
-          appId: null,
-          active: Boolean(industries.active),
-          order: industries.displayOrder ?? 2,
-        }
+        key: "INDUSTRIES",
+        label: SECTION_LABELS.INDUSTRIES,
+        title: industries.title || "",
+        subtitle: industries.subtitle || "",
+        publicId: industries.id,
+        appId: null,
+        active: Boolean(industries.active),
+        order: industries.displayOrder ?? 2,
+      }
       : null,
     partners
       ? {
-          key: "PARTNERS",
-          title: partners.title || "Parceiros principais",
-          subtitle: partners.subtitle || "",
-          publicId: partners.id,
-          appId: null,
-          active: Boolean(partners.active),
-          order: partners.displayOrder ?? 3,
-        }
+        key: "PARTNERS",
+        label: SECTION_LABELS.PARTNERS,
+        title: partners.title || "",
+        subtitle: partners.subtitle || "",
+        publicId: partners.id,
+        appId: null,
+        active: Boolean(partners.active),
+        order: partners.displayOrder ?? 3,
+      }
       : null,
   ].filter(Boolean);
 
@@ -99,20 +110,30 @@ export default function CombinedOrderCard() {
 
   const handleToggle = useCallback(
     async (item) => {
+      console.log("[DEBUG CombinedOrderCard] handleToggle called with item:", item);
+      console.log("[DEBUG CombinedOrderCard] appSections:", appSections);
+      console.log("[DEBUG CombinedOrderCard] publicSections:", publicSections);
+
       setBanner?.(null);
       const publicTarget = item.publicId
         ? publicSections.find((section) => section.id === item.publicId)
         : null;
       const appTarget = item.appId ? appSections.find((section) => section.id === item.appId) : null;
 
+      console.log("[DEBUG CombinedOrderCard] publicTarget:", publicTarget);
+      console.log("[DEBUG CombinedOrderCard] appTarget:", appTarget);
+
       try {
         if (publicTarget) {
+          console.log("[DEBUG CombinedOrderCard] Calling handlePublicToggle for:", publicTarget);
           await handlePublicToggle(publicTarget);
         }
         if (appTarget) {
+          console.log("[DEBUG CombinedOrderCard] Calling handleAppToggle for:", appTarget);
           await handleAppToggle(appTarget);
         }
       } catch (err) {
+        console.error("[DEBUG CombinedOrderCard] Error:", err);
         setBanner?.({ type: "error", message: err.message || "Nao foi possivel alterar a visibilidade." });
       }
     },
@@ -156,7 +177,7 @@ export default function CombinedOrderCard() {
               <div className="flex items-center gap-3">
                 <span className="font-semibold text-primary cursor-grab select-none">{index + 1}.</span>
                 <div>
-                  <p className="font-semibold">{item.title || item.key}</p>
+                  <p className="font-semibold">{item.label || item.key}</p>
                   {item.subtitle && (
                     <p className="text-sm text-base-content/70 line-clamp-1">{item.subtitle}</p>
                   )}

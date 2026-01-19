@@ -9,18 +9,9 @@ export default function AppHeroSection({ form, saving, onFieldChange, onSubmit }
         <div>
           <div className="flex flex-wrap items-center justify-between gap-4">
             <h2 className="card-title text-3xl">Hero</h2>
-            <label className="flex items-center gap-3">
-              <span className="label-text font-semibold">Mostrar barra de progresso:</span>
-              <input
-                type="checkbox"
-                className="toggle toggle-primary"
-                checked={form.profileBarVisible}
-                onChange={(e) => onFieldChange("profileBarVisible", e.target.checked)}
-              />
-            </label>
           </div>
           <p className="text-base-content/60 text-sm">
-            Personalize o prefixo do cumprimento, a visibilidade da barra, os rótulos e o botão.
+            Personalize o prefixo do cumprimento, os rótulos e o botão.
           </p>
         </div>
 
@@ -33,7 +24,6 @@ export default function AppHeroSection({ form, saving, onFieldChange, onSubmit }
               placeholder="Olá"
               className="w-full"
             />
-            <div />
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
