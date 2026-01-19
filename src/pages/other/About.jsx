@@ -11,7 +11,7 @@ import rodrigoFerreira from "../../assets/images/logo/devTeam/rodrigo_ferreira.j
 const team = [
   {
     name: "Luís Assis",
-    role: "Membro da Equipa de Desenvolvimento · Gestor do Projeto",
+    role: "Gestor do Projeto",
     initials: "LA",
     photo: luisAssis,
   },
@@ -23,7 +23,7 @@ const team = [
   },
   {
     name: "João Nunes",
-    role: "Membro da Equipa de Desenvolvimento",
+    role: "Subgestor",
     initials: "JN",
     photo: joaoGabriel,
   },
@@ -41,7 +41,7 @@ const team = [
   },
   {
     name: "Rodrigo Ferreira",
-    role: "Membro da Equipa de Desenvolvimento",
+    role: "Líder de Testes",
     initials: "RF",
     photo: rodrigoFerreira,
   },
@@ -88,26 +88,29 @@ export default function About() {
         </section>
 
         <section className="grid md:grid-cols-2 gap-10 items-center">
-          <div className="space-y-3">
-            <h2 className="text-2xl font-bold text-primary">Origem e visão</h2>
-            <p className="text-base-content/80 leading-relaxed">
-              Criada por uma equipa multidisciplinar, a plataforma evoluiu a partir de necessidades
-              reais de operações: aprovar contas com rigor, gerir uploads críticos (CVs e
-              certificações), acompanhar requisições e manter logs completos de ações.
-            </p>
-            <p className="text-base-content/80 leading-relaxed">
-              Continuamos a iterar com foco em experiência, segurança e dados fiáveis para que cada
-              ligação entre empresa e profissional seja rápida, segura e rastreável.
-            </p>
-          </div>
-          <div className="card bg-base-100 border border-base-200 shadow-sm">
+          <div className="card bg-base-100 border border-base-200 shadow-sm h-full">
             <div className="card-body space-y-3">
-              <h3 className="text-lg font-semibold text-primary">O que estamos a construir</h3>
+              <h3 className="text-lg font-semibold text-primary">A Ideia</h3>
+              <p className="text-sm font-medium text-base-content/70">Onde vimos a oportunidade</p>
+              <ul className="list-disc list-inside text-base-content/80 space-y-1">
+                <li>Recrutamento industrial ainda é demasiado informal.</li>
+                <li>Contratações dispersas, sem histórico e sem rastreabilidade.</li>
+                <li>Processos repetidos e pouca centralização.</li>
+                <li>Baixa eficiência, transparência e dados consistentes.</li>
+                <li>Falta uma plataforma única para perfis, requisições e equipas.</li>
+              </ul>
+            </div>
+          </div>
+          <div className="card bg-base-100 border border-base-200 shadow-sm h-full">
+            <div className="card-body space-y-3">
+              <h3 className="text-lg font-semibold text-primary">A Solução</h3>
+              <p className="text-sm font-medium text-base-content/70">O que construímos</p>
               <ul className="list-disc list-inside text-base-content/80 space-y-1">
                 <li>Validação e aprovação de credenciais de empresas e admins.</li>
                 <li>Gestão de requisições com filtros e logs de ações.</li>
                 <li>Uploads seguros para CV, certificações e foto de perfil.</li>
                 <li>Dashboard de métricas e histórico de logs por perfil.</li>
+                <li>Ligação rápida, segura e rastreável.</li>
               </ul>
             </div>
           </div>
