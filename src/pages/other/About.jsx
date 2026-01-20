@@ -10,6 +10,12 @@ import rodrigoFerreira from "../../assets/images/logo/devTeam/rodrigo_ferreira.j
 
 const team = [
   {
+    name: "João Nunes",
+    role: "Subgestor",
+    initials: "JN",
+    photo: joaoGabriel,
+  },
+  {
     name: "Luís Assis",
     role: "Gestor do Projeto",
     initials: "LA",
@@ -20,13 +26,7 @@ const team = [
     role: "Membro da Equipa de Desenvolvimento",
     initials: "LN",
     photo: luisNantes,
-  },
-  {
-    name: "João Nunes",
-    role: "Subgestor",
-    initials: "JN",
-    photo: joaoGabriel,
-  },
+  },  
   {
     name: "Gabriel Oliveira",
     role: "Membro da Equipa de Desenvolvimento",
