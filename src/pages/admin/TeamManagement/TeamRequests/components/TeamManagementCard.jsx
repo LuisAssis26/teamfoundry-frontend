@@ -13,9 +13,9 @@ export default function TeamManagementCard({ id, company, email, phone, workforc
     >
       <dl className="grid grid-cols-1 gap-1 text-base text-base-content sm:grid-cols-2">
         <InfoRow label="Nome Empresa" value={company} />
-        <InfoRow label="Email Responsavel" value={email} />
+        <InfoRow label="Email Responsável" value={email} />
         <InfoRow label="Telefone Empresa" value={phone} />
-        <InfoRow label="Mao de Obra" value={workforce} />
+        <InfoRow label="Mão de Obra" value={workforce} />
       </dl>
 
       <Link

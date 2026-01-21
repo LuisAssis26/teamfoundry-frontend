@@ -78,8 +78,8 @@ export default function TeamManagement() {
       phone: request.companyPhone ?? "N/A",
       workforce:
           request.workforceNeeded > 0
-              ? `${request.workforceNeeded} funcionarios`
-              : "Sem requisicoes de funcionarios",
+              ? `${request.workforceNeeded} funcionários`
+              : "Sem requisicoes de funcionários",
       status: request.state,
     }));
   }, [requests, statusFilter, dateOrder, workforceOrder, searchTerm]);

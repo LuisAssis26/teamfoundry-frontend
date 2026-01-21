@@ -293,7 +293,7 @@ export default function BuildTeamSearch() {
                             <div className="flex flex-col gap-6 lg:flex-row">
                                 <FiltersPanel
                                     companyName={teamInfo?.companyName || "Empresa"}
-                                    role={role || "Funcao"}
+                                    role={role || "Função"}
                                     geoOptions={geoOptions}
                                     geoSelected={geoSelected}
                                     skillOptions={skillOptions}

@@ -48,9 +48,6 @@ export default function AssignAdminModal({
       <div className="col-span-3">
         <span className="text-body text-base-content">
           {admin.name}
-          {isCurrent && (
-            <span className="ml-2 badge badge-sm badge-primary">Atual</span>
-          )}
         </span>
       </div>
       <div className="col-span-6 flex justify-center">

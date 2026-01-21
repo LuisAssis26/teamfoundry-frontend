@@ -19,8 +19,8 @@ export default function TeamRequestCard({
       className="relative rounded-2xl border border-base-300 bg-base-100 px-6 py-4 shadow-lg"
     >
       <dl className="grid grid-cols-1 gap-1 text-base text-base-content sm:grid-cols-2">
-        <InfoRow label="Funcao" value={role} />
-        <InfoRow label="Mao de Obra" value={`${workforceCurrent} de ${workforceTotal}`} />
+        <InfoRow label="Função" value={role} />
+        <InfoRow label="Mão de Obra" value={`${workforceCurrent} de ${workforceTotal}`} />
         <InfoRow label="Propostas Enviadas" value={proposalsSent} />
       </dl>
 

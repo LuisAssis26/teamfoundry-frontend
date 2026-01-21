@@ -97,11 +97,11 @@ export default function TeamEmployeeRequests() {
 
         {isLoading ? (
           <div className="rounded-2xl border border-base-200 bg-base-100 p-8 text-center text-base-content/70 shadow">
-            Carregando funcoes requisitadas...
+            Carregando funçoes requisitadas...
           </div>
         ) : requests.length === 0 ? (
           <div className="alert alert-info shadow">
-            <span>Nao ha funcoes requisitadas para esta equipa.</span>
+            <span>Nao ha funçoes requisitadas para esta equipa.</span>
           </div>
         ) : (
           <TeamRequestGrid requests={requests} onSelect={handleSelect} />
